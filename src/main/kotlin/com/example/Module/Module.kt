@@ -1,4 +1,4 @@
-package com.example
+package com.example.Module
 
 import com.example.core.database.databaseModule
 import com.example.feature.friend.friendsModule
@@ -28,7 +28,7 @@ fun Application.module() {
     install(Authentication) {
         jwt {
             verifier(JwtConfig.verifier)
-            realm = "com.example.rom_dv"
+            realm = "com.example"
             validate {
                 val id = it.payload.getClaim("id").asInt()
                 val nickname = it.payload.getClaim("nickname").asString()
