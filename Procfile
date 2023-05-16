@@ -1,1 +1,1 @@
-web: ./build/install/rom_dv_api/bin/rom_dv_api -port=8080
+web: ./build/install/rom_dv_api/bin/rom_dv_api
