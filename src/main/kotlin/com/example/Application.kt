@@ -20,7 +20,7 @@ import org.koin.ktor.ext.get
 import org.koin.ktor.plugin.Koin
 
 fun main() {
-    embeddedServer(Netty, port = (System.getenv("PORT") ?: "8080").toInt()) {
+    embeddedServer(Netty, port = (System.getenv("PORT") ?: "8081").toInt()) {
         install(Koin) {
             modules(databaseModule)
             modules(userModule)
