@@ -28,6 +28,10 @@ class QuestioningController(
                     call.respond(questioningService.getAllQuestioning())
                 }
             }
+            get("/get_quest") {
+//                val userId = call.principal<UserPrincipal>()
+                call.respond(questioningService.getAllQuestioning())
+            }
 
         }
 
