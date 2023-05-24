@@ -16,7 +16,7 @@ import io.ktor.server.routing.*
 import org.koin.ktor.ext.get
 import org.koin.ktor.plugin.Koin
 
-fun Application.module() {
+//fun Application.module() {
 
 //    install(Koin) {
 //        modules(databaseModule)
@@ -59,4 +59,4 @@ fun Application.module() {
 //    configureSockets()
 //    configureAdministration()
 //    configureRouting()
-}
+//}

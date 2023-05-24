@@ -8,6 +8,7 @@ import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import org.koin.ktor.ext.get
 
 class UserController(private val userService: UserService) {
     fun userRoute(route: Routing) {
@@ -22,6 +23,9 @@ class UserController(private val userService: UserService) {
                 val user = call.receive<UserRequest>()
                 val response = userService.signUp(user)
                 call.respond(response)
+            }
+            get("/qw") {
+                call.respond("sdf")
             }
         }
     }

@@ -1,6 +1,5 @@
 package com.example
 
-import com.example.Module.module
 import com.example.core.database.databaseModule
 import com.example.feature.friend.friendsModule
 import com.example.feature.friend.presentation.FriendsController
@@ -20,7 +19,7 @@ import org.koin.ktor.ext.get
 import org.koin.ktor.plugin.Koin
 
 fun main() {
-    val port = System.getenv("PORT")?.toInt() ?: 23567
+    val port = System.getenv("PORT")?.toInt() ?: 8081
     embeddedServer(Netty, port = port, module = Application::module)
             .start(wait = true)
 }

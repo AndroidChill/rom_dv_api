@@ -23,7 +23,7 @@ class QuestioningController(
                     call.respond(questioningService.fillQuestioning(userId?.id ?: -1, request))
                 }
 
-                post("/get_quest") {
+                get("/get_quest") {
                     val userId = call.principal<UserPrincipal>()
                     call.respond(questioningService.getAllQuestioning())
                 }
