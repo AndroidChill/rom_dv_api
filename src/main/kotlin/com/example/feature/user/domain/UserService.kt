@@ -1,5 +1,6 @@
 package com.example.feature.user.domain
 
+import com.example.feature.user.domain.model.RecoveryRequest
 import com.example.feature.user.domain.model.UserFull
 import com.example.feature.user.domain.model.UserRequest
 import com.example.feature.user.domain.model.UserToken

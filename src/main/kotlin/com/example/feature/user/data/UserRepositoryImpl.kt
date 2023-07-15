@@ -5,17 +5,31 @@ import com.example.feature.user.domain.model.UserFull
 import com.example.feature.user.domain.model.UserRequest
 import com.example.feature.user.domain.model.UserResponse
 import com.example.feature.user.domain.model.UserTable
-import com.example.plugins.User
-import com.example.plugins.UserService
-import com.example.utils.JwtConfig
+import com.example.feature.user.domain.model.recovery.Message
+import com.example.feature.user.domain.model.recovery.SmsSendRequest
 import com.example.utils.dbQuery
+import io.ktor.client.*
+import io.ktor.client.call.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.plugins.*
+import io.ktor.client.plugins.compression.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
+import io.ktor.http.*
+import io.ktor.serialization.jackson.*
+import io.ktor.util.date.*
+import io.netty.handler.codec.compression.StandardCompressionOptions.deflate
+import io.netty.handler.codec.compression.StandardCompressionOptions.gzip
+import kotlinx.coroutines.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.mindrot.jbcrypt.BCrypt
+import kotlin.random.Random
 
 class UserRepositoryImpl(
     private val database: Database
-): UserRepository {
+) : UserRepository {
 
     init {
         transaction(database) {
@@ -30,7 +44,7 @@ class UserRepositoryImpl(
     }
 
     override suspend fun getAllUsersByIds(data: List<Int>): List<UserResponse> = dbQuery {
-        UserTable.select{
+        UserTable.select {
             UserTable.id inList data
         }.mapNotNull {
             it.toUserResponse()
@@ -39,16 +53,23 @@ class UserRepositoryImpl(
 
     override suspend fun create(user: UserRequest): Int = dbQuery {
         val hashedPassword = BCrypt.hashpw(user.password, BCrypt.gensalt())
-        UserTable.insert {
-            it[email] = user.email
-            it[phone] = user.phone
-            it[firstName] = user.firstName
-            it[secondName] = user.secondName
-            it[thirdName] = user.thirdName
-            it[nickname] = user.nickname
-            it[gender] = user.gender
-            it[encryptedPassword] = hashedPassword
-        }[UserTable.id]
+        val fioData = user.fio.split(" ")
+        try {
+            UserTable.insert {
+                it[email] = user.email
+                it[phone] = user.phone
+                it[firstName] = fioData.getOrNull(0) ?: ""
+                it[secondName] = fioData.getOrNull(1) ?: ""
+                it[thirdName] = fioData.getOrNull(2) ?: ""
+                it[nickname] = user.nickname
+                it[gender] = user.gender
+                it[encryptedPassword] = hashedPassword
+            }[UserTable.id]
+        } catch (e: Exception) {
+            val mes = e.stackTrace
+            0
+        }
+
     }
 
     fun decodePassword(password: String): String {

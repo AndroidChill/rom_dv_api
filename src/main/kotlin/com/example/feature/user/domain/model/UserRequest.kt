@@ -12,14 +12,8 @@ data class UserRequest(
     @SerialName("phone")
     val phone: String,
 
-    @SerialName("first_name")
-    val firstName: String,
-
-    @SerialName("second_name")
-    val secondName: String,
-
-    @SerialName("third_name")
-    val thirdName: String,
+    @SerialName("fio")
+    val fio: String,
 
     @SerialName("nickname")
     val nickname: String,
