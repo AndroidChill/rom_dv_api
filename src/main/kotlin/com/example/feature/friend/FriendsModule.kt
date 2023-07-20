@@ -9,7 +9,7 @@ import com.example.feature.user.domain.UserRepository
 import org.koin.dsl.module
 
 val friendsModule = module {
-    single<FriendsRepository> { FriendsRepositoryImpl(get()) }
+    single<FriendsRepository> { FriendsRepositoryImpl() }
     single<UserRepository> { UserRepositoryImpl() }
     single<FriendsService> { FriendsService(get(), get()) }
     single<FriendsController> { FriendsController(get()) }

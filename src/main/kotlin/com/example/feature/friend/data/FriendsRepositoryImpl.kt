@@ -9,9 +9,7 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
 
-class FriendsRepositoryImpl(
-    private val database: Database
-) : FriendsRepository {
+class FriendsRepositoryImpl() : FriendsRepository {
 
     private suspend fun countFriends(userId: Int) = dbQuery {
         FriendshipTable

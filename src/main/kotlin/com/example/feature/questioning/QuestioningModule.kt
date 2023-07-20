@@ -11,7 +11,7 @@ import com.example.feature.user.presentation.UserController
 import org.koin.dsl.module
 
 val questioningModule = module {
-    single<QuestioningRepository> { QuestioningRepositoryImpl(get()) }
+    single<QuestioningRepository> { QuestioningRepositoryImpl() }
     single<QuestioningService> { QuestioningService(get()) }
     factory<QuestioningController> { QuestioningController(get()) }
 }

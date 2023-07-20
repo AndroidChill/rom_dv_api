@@ -1,5 +1,8 @@
 package com.example.config
 
+import com.example.feature.questioning.domain.model.tables.OptionTable
+import com.example.feature.questioning.domain.model.tables.ThemeTable
+import com.example.feature.questioning.domain.model.tables.UserAnswerTable
 import com.example.feature.user.domain.model.UserTable
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
@@ -27,6 +30,9 @@ class DatabaseProvider : DatabaseProviderContract, KoinComponent {
         Database.connect(hikari(config))
         transaction {
             SchemaUtils.create(UserTable)
+            SchemaUtils.create(ThemeTable)
+            SchemaUtils.create(OptionTable)
+            SchemaUtils.create(UserAnswerTable)
         }
     }
 

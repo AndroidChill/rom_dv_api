@@ -11,17 +11,7 @@ import com.example.utils.dbQuery
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 
-class QuestioningRepositoryImpl(
-    val database: Database
-) : QuestioningRepository{
-
-    init {
-        transaction(database) {
-            SchemaUtils.create(ThemeTable)
-            SchemaUtils.create(OptionTable)
-            SchemaUtils.create(UserAnswerTable)
-        }
-    }
+class QuestioningRepositoryImpl() : QuestioningRepository{
 
     override suspend fun fillQuestioning(userId: Int, request: UserQuestioningFillRequest): List<Int> = dbQuery {
 
