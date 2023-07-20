@@ -10,7 +10,7 @@ import org.koin.dsl.module
 
 val friendsModule = module {
     single<FriendsRepository> { FriendsRepositoryImpl(get()) }
-    single<UserRepository> { UserRepositoryImpl(get()) }
+    single<UserRepository> { UserRepositoryImpl() }
     single<FriendsService> { FriendsService(get(), get()) }
     single<FriendsController> { FriendsController(get()) }
 }

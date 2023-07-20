@@ -9,7 +9,7 @@ import org.koin.dsl.module
 
 
 val userModule = module {
-    single<UserRepository> { UserRepositoryImpl(get()) }
+    single<UserRepository> { UserRepositoryImpl() }
     single<UserService> { UserService(get()) }
     factory<UserController> { UserController(get()) }
 }
