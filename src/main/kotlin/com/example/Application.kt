@@ -25,7 +25,7 @@ fun main() {
     val environment = System.getenv()["ENVIRONMENT"] ?: handleDefaultEnvironment()
     val config = extractConfig(environment, HoconApplicationConfig(ConfigFactory.load()))
     embeddedServer(Netty, port = config.port, module = Application::module)
-            .start(wait = true)
+        .start(wait = true)
 }
 
 @Suppress("unused")
@@ -82,9 +82,14 @@ fun handleDefaultEnvironment(): String {
 
 fun extractConfig(environment: String, hoconConfig: HoconApplicationConfig): Config {
     val hoconEnvironment = hoconConfig.config("ktor.deployment.$environment")
+    val port = if (environment == "def") {
+        Integer.parseInt(hoconEnvironment.property("port").getString())
+    } else {
+        Integer.parseInt(hoconConfig.config("ktor.deployment").property("port").getString())
+    }
     return Config(
         host = hoconEnvironment.property("host").getString(),
-        port = Integer.parseInt(hoconEnvironment.property("port").getString()),
+        port = port,
         databaseHost = hoconEnvironment.property("databaseHost").getString(),
         databasePort = hoconEnvironment.property("databasePort").getString(),
         databaseUsername = hoconEnvironment.property("databaseUsername").getString(),
