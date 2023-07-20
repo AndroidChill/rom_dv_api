@@ -5,37 +5,13 @@ import com.example.feature.user.domain.model.UserFull
 import com.example.feature.user.domain.model.UserRequest
 import com.example.feature.user.domain.model.UserResponse
 import com.example.feature.user.domain.model.UserTable
-import com.example.feature.user.domain.model.recovery.Message
-import com.example.feature.user.domain.model.recovery.SmsSendRequest
 import com.example.utils.dbQuery
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.engine.cio.*
-import io.ktor.client.plugins.*
-import io.ktor.client.plugins.compression.*
-import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import io.ktor.http.*
-import io.ktor.serialization.jackson.*
-import io.ktor.util.date.*
-import io.netty.handler.codec.compression.StandardCompressionOptions.deflate
-import io.netty.handler.codec.compression.StandardCompressionOptions.gzip
-import kotlinx.coroutines.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.mindrot.jbcrypt.BCrypt
 import kotlin.random.Random
 
-class UserRepositoryImpl(
-    private val database: Database
-) : UserRepository {
-
-    init {
-        transaction(database) {
-            SchemaUtils.create(UserTable)
-        }
-    }
+class UserRepositoryImpl : UserRepository {
 
     override suspend fun getAllUser(): List<UserFull> = dbQuery {
         UserTable.selectAll().mapNotNull {

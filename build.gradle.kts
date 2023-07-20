@@ -46,6 +46,9 @@ dependencies {
     implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
 
+    implementation("org.postgresql:postgresql:42.2.2")
+    implementation("com.zaxxer:HikariCP:3.4.2")
+
     implementation("org.mindrot:jbcrypt:0.4")
 
     // DI

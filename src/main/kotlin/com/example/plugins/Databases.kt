@@ -20,40 +20,10 @@ fun Application.configureDatabases() {
         password = "rdv_db_password"
     )
     val dbConnection: Connection = connectToPostgres(embedded = true)
-//    val cityService = CityService(dbConnection)
     val userService = UserService(database)
     routing {
 
-//        post("/registration") {
-//            val user = call.receive<User>()
-//            val id = userService.create(user)
-//            call.respond(HttpStatusCode.Created, id)
-//        }
-//
-//        post("/login") {
-//            val phone = call.receive<UserLogin>()
-//            val token = userService.getUserByPhone(phone.phone)
-//            call.respond(HttpStatusCode.OK, token ?: "invalid token")
-//        }
-//
-//        authenticate {
-//            get("/profile") {
-//                if (call.user != null) {
-//                    val user = userService.getUserByNickname(call.user!!.nickname)
-//                    if (user != null) {
-//                        call.respond(UserProfile(
-//                            email = user.email,
-//                            phone = user.phone,
-//                            firstName = user.firstName,
-//                            secondName = user.secondName,
-//                            thirdName = user.thirdName,
-//                            nickname = user.nickname,
-//                            gender = user.gender
-//                        ))
-//                    }
-//                }
-//            }
-//        }
+
 
     }
 }

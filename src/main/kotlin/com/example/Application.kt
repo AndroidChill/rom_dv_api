@@ -1,6 +1,7 @@
 package com.example
 
-import com.example.core.database.databaseModule
+import com.example.config.Config
+import com.example.config.database.databaseModule
 import com.example.feature.friend.friendsModule
 import com.example.feature.friend.presentation.FriendsController
 import com.example.feature.questioning.presentation.QuestioningController
@@ -12,15 +13,18 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import com.example.plugins.*
 import com.example.utils.JwtConfig
+import com.typesafe.config.ConfigFactory
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
+import io.ktor.server.config.*
 import io.ktor.server.routing.*
 import org.koin.ktor.ext.get
 import org.koin.ktor.plugin.Koin
 
 fun main() {
-    val port = System.getenv("PORT")?.toInt() ?: 8081
-    embeddedServer(Netty, port = port, module = Application::module)
+    val environment = System.getenv()["ENVIRONMENT"] ?: handleDefaultEnvironment()
+    val config = extractConfig(environment, HoconApplicationConfig(ConfigFactory.load()))
+    embeddedServer(Netty, port = config.port, module = Application::module)
             .start(wait = true)
 }
 
@@ -70,3 +74,21 @@ fun Application.module() {
 }
 
 val ApplicationCall.user get() = authentication.principal<UserPrincipal>()
+
+fun handleDefaultEnvironment(): String {
+    println("Falling back to default environment 'dev'")
+    return "dev"
+}
+
+fun extractConfig(environment: String, hoconConfig: HoconApplicationConfig): Config {
+    val hoconEnvironment = hoconConfig.config("ktor.deployment.$environment")
+    return Config(
+        host = hoconEnvironment.property("host").getString(),
+        port = Integer.parseInt(hoconEnvironment.property("port").getString()),
+        databaseHost = hoconEnvironment.property("databaseHost").getString(),
+        databasePort = hoconEnvironment.property("databasePort").getString(),
+        databaseUsername = hoconEnvironment.property("databaseUsername").getString(),
+        databasePassword = hoconEnvironment.property("databasePassword").getString(),
+        databaseName = hoconEnvironment.property("databaseName").getString()
+    )
+}

@@ -3,6 +3,7 @@ package com.example.feature.user.presentation
 import com.example.feature.user.domain.UserService
 import com.example.feature.user.domain.model.UserClaims
 import com.example.feature.user.domain.model.UserRequest
+import com.example.feature.user.domain.model.recovery.EmailSendRequest
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.request.*

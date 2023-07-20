@@ -1,21 +1,5 @@
 package com.example.Module
 
-import com.example.core.database.databaseModule
-import com.example.feature.friend.friendsModule
-import com.example.feature.friend.presentation.FriendsController
-import com.example.feature.questioning.presentation.QuestioningController
-import com.example.feature.questioning.questioningModule
-import com.example.feature.user.presentation.UserController
-import com.example.feature.user.userModule
-import com.example.plugins.*
-import com.example.utils.JwtConfig
-import io.ktor.server.application.*
-import io.ktor.server.auth.*
-import io.ktor.server.auth.jwt.*
-import io.ktor.server.routing.*
-import org.koin.ktor.ext.get
-import org.koin.ktor.plugin.Koin
-
 //fun Application.module() {
 
 //    install(Koin) {

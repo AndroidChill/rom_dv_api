@@ -15,7 +15,6 @@ class QuestioningRepositoryImpl(
     val database: Database
 ) : QuestioningRepository{
 
-
     init {
         transaction(database) {
             SchemaUtils.create(ThemeTable)
