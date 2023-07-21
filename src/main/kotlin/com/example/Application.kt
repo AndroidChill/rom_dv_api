@@ -22,8 +22,6 @@ import org.koin.ktor.ext.get
 import org.koin.ktor.plugin.Koin
 
 fun main() {
-    val environment = System.getenv()["ENVIRONMENT"] ?: handleDefaultEnvironment()
-    print("ENVIRONMENT" + environment)
     val hoconConfig = HoconApplicationConfig(ConfigFactory.load())
     val config = extractConfig(getActualEnvironment(hoconConfig), HoconApplicationConfig(ConfigFactory.load()))
     embeddedServer(Netty, port = config.port, module = Application::module)
@@ -76,11 +74,6 @@ fun Application.module() {
 }
 
 val ApplicationCall.user get() = authentication.principal<UserPrincipal>()
-
-fun handleDefaultEnvironment(): String {
-    println("Falling back to default environment 'dev'")
-    return "dev"
-}
 
 fun getActualEnvironment(hoconConfig: HoconApplicationConfig): String {
     val hoconEnv = hoconConfig.config("ktor.deployment")
