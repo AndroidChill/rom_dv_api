@@ -24,7 +24,8 @@ import org.koin.ktor.plugin.Koin
 fun main() {
     val environment = System.getenv()["ENVIRONMENT"] ?: handleDefaultEnvironment()
     print("ENVIRONMENT" + environment)
-    val config = extractConfig(environment, HoconApplicationConfig(ConfigFactory.load()))
+    val hoconConfig = HoconApplicationConfig(ConfigFactory.load())
+    val config = extractConfig(getActualEnvironment(hoconConfig), HoconApplicationConfig(ConfigFactory.load()))
     embeddedServer(Netty, port = config.port, module = Application::module)
         .start(wait = true)
 }
@@ -81,13 +82,14 @@ fun handleDefaultEnvironment(): String {
     return "dev"
 }
 
+fun getActualEnvironment(hoconConfig: HoconApplicationConfig): String {
+    val hoconEnv = hoconConfig.config("ktor.deployment")
+    return hoconEnv.property("environment").getString()
+}
+
 fun extractConfig(environment: String, hoconConfig: HoconApplicationConfig): Config {
     val hoconEnvironment = hoconConfig.config("ktor.deployment.$environment")
-    val port = if (environment == "def") {
-        Integer.parseInt(hoconEnvironment.property("port").getString())
-    } else {
-        Integer.parseInt(hoconConfig.config("ktor.deployment").property("port").getString())
-    }
+    val port = Integer.parseInt(hoconEnvironment.property("port").getString())
     return Config(
         host = hoconEnvironment.property("host").getString(),
         port = port,
