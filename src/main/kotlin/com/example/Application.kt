@@ -89,7 +89,7 @@ fun getActualEnvironment(hoconConfig: HoconApplicationConfig): String {
 
 fun extractConfig(environment: String, hoconConfig: HoconApplicationConfig): Config {
     val hoconEnvironment = hoconConfig.config("ktor.deployment.$environment")
-    val port = Integer.parseInt(hoconEnvironment.property("port").getString())
+    val port = Integer.parseInt(hoconConfig.config("ktor.deployment").property("port").getString())
     return Config(
         host = hoconEnvironment.property("host").getString(),
         port = port,
