@@ -43,6 +43,7 @@ class UserRepositoryImpl : UserRepository {
             }[UserTable.id]
         } catch (e: Exception) {
             val mes = e.stackTrace
+            print("STACKTRACE" + mes)
             0
         }
 
