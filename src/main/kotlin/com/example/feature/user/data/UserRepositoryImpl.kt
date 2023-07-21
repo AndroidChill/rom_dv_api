@@ -44,6 +44,8 @@ class UserRepositoryImpl : UserRepository {
         } catch (e: Exception) {
             val mes = e.stackTrace
             print("STACKTRACE" + mes)
+            print("MESSAGE" + e.message)
+            print("ERROR" + e)
             0
         }
 
