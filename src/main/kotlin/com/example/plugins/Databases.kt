@@ -1,5 +1,6 @@
 package com.example.plugins
 
+import com.example.config.DatabaseProviderContract
 import com.example.user
 import io.ktor.http.*
 import io.ktor.server.request.*
@@ -10,22 +11,26 @@ import org.jetbrains.exposed.sql.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.routing.*
+import org.koin.ktor.ext.inject
 
 fun Application.configureDatabases() {
 
-    val database = Database.connect(
-        url = "jdbc:postgresql://localhost:6500/postgres?sslmode=disable",
-        driver = "org.postgresql.Driver",
-        user = "rdv_db",
-        password = "rdv_db_password"
-    )
-    val dbConnection: Connection = connectToPostgres(embedded = true)
-    val userService = UserService(database)
-    routing {
+    val databaseProvider by inject<DatabaseProviderContract>()
+    databaseProvider.init()
 
-
-
-    }
+//    val database = Database.connect(
+//        url = "jdbc:postgresql://localhost:6500/postgres?sslmode=disable",
+//        driver = "org.postgresql.Driver",
+//        user = "rdv_db",
+//        password = "rdv_db_password"
+//    )
+//    val dbConnection: Connection = connectToPostgres(embedded = true)
+//    val userService = UserService(database)
+//    routing {
+//
+//
+//
+//    }
 }
 
 /**

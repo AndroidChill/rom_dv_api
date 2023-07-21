@@ -1,6 +1,8 @@
 package com.example
 
 import com.example.config.Config
+import com.example.config.DatabaseProvider
+import com.example.config.DatabaseProviderContract
 import com.example.config.database.databaseModule
 import com.example.feature.friend.friendsModule
 import com.example.feature.friend.presentation.FriendsController
@@ -31,11 +33,21 @@ fun main() {
 
 @Suppress("unused")
 fun Application.module() {
+    val hoconConfig = HoconApplicationConfig(ConfigFactory.load())
+    val config = extractConfig(getActualEnvironment(hoconConfig), HoconApplicationConfig(ConfigFactory.load()))
+    print("CONFIG" + config.toString())
     install(Koin) {
-        modules(databaseModule)
+        modules(
+            databaseModule,
+            org.koin.dsl.module {
+                single { config }
+                single<DatabaseProviderContract> { DatabaseProvider() }
+            }
+        )
         modules(userModule)
         modules(questioningModule)
         modules(friendsModule)
+
     }
 
     install(Authentication) {
