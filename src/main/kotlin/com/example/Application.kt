@@ -24,6 +24,7 @@ import org.koin.ktor.plugin.Koin
 fun main() {
     val hoconConfig = HoconApplicationConfig(ConfigFactory.load())
     val config = extractConfig(getActualEnvironment(hoconConfig), HoconApplicationConfig(ConfigFactory.load()))
+    print("CONFIG" + config.toString())
     embeddedServer(Netty, port = config.port, module = Application::module)
         .start(wait = true)
 }
