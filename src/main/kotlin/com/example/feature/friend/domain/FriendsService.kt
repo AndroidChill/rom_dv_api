@@ -1,8 +1,7 @@
 package com.example.feature.friend.domain
 
 import com.example.feature.friend.domain.models.*
-import com.example.feature.user.domain.UserRepository
-import com.example.feature.user.domain.model.UserResponse
+import com.example.feature.user.data.UserRepository
 import com.example.utils.DataIsIncorrectException
 import com.example.utils.ResultResponse
 import com.example.utils.UserNotExistException

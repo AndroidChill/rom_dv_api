@@ -2,8 +2,8 @@ package com.example.feature.friend.data
 
 import com.example.feature.friend.domain.FriendsRepository
 import com.example.feature.friend.domain.models.*
-import com.example.feature.user.domain.model.UserResponse
-import com.example.feature.user.domain.model.UserTable
+import com.example.feature.user.model.UserResponse
+import com.example.feature.user.model.UserTable
 import com.example.utils.dbQuery
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq

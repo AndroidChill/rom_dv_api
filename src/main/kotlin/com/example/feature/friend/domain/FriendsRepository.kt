@@ -4,7 +4,7 @@ import com.example.feature.friend.domain.models.GetAllFriendsRequest
 import com.example.feature.friend.domain.models.SearchFriendsRequest
 import com.example.feature.friend.domain.models.SendRequestFriends
 import com.example.feature.friend.domain.models.UpdateStateRequestFriends
-import com.example.feature.user.domain.model.UserResponse
+import com.example.feature.user.model.UserResponse
 
 interface FriendsRepository {
 

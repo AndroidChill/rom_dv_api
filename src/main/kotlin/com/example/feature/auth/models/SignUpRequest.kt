@@ -1,11 +1,10 @@
-package com.example.feature.user.domain.model
+package com.example.feature.auth.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserRequest(
-
+data class SignUpRequest(
     @SerialName("email")
     val email: String,
 

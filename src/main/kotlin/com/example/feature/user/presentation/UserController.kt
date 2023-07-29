@@ -1,9 +1,9 @@
 package com.example.feature.user.presentation
 
 import com.example.feature.user.domain.UserService
-import com.example.feature.user.domain.model.UserClaims
-import com.example.feature.user.domain.model.UserRequest
-import com.example.feature.user.domain.model.recovery.EmailSendRequest
+import com.example.feature.user.model.UserClaims
+import com.example.feature.user.model.UserRequest
+import com.example.feature.user.model.recovery.EmailSendRequest
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.request.*
@@ -21,9 +21,9 @@ class UserController(private val userService: UserService) {
             }
 
             post("/sign_up") {
-                val user = call.receive<UserRequest>()
-                val response = userService.signUp(user)
-                call.respond(response)
+//                val user = call.receive<UserRequest>()
+//                val response = userService.signUp(user)
+//                call.respond(response)
             }
             get("/qw") {
                 call.respond("sdf")

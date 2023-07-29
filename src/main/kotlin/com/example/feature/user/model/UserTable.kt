@@ -1,4 +1,4 @@
-package com.example.feature.user.domain.model
+package com.example.feature.user.model
 
 import org.jetbrains.exposed.sql.Table
 

@@ -1,6 +1,6 @@
 package com.example.feature.friend.domain.models
 
-import com.example.feature.user.domain.model.UserTable
+import com.example.feature.user.model.UserTable
 import org.jetbrains.exposed.sql.Table
 
 object FriendshipTable: Table(name = "friendship") {

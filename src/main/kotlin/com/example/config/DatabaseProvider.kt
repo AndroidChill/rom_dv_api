@@ -3,7 +3,7 @@ package com.example.config
 import com.example.feature.questioning.domain.model.tables.OptionTable
 import com.example.feature.questioning.domain.model.tables.ThemeTable
 import com.example.feature.questioning.domain.model.tables.UserAnswerTable
-import com.example.feature.user.domain.model.UserTable
+import com.example.feature.user.model.UserTable
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import kotlinx.coroutines.DelicateCoroutinesApi

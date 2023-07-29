@@ -1,17 +1,20 @@
 package com.example.feature.user.domain
 
-import com.example.feature.user.domain.model.RecoveryRequest
-import com.example.feature.user.domain.model.UserFull
-import com.example.feature.user.domain.model.UserRequest
-import com.example.feature.user.domain.model.UserToken
+import com.example.feature.user.data.UserRepository
+import com.example.feature.user.model.RecoveryRequest
+import com.example.feature.user.model.UserFull
+import com.example.feature.user.model.UserRequest
+import com.example.feature.user.model.UserToken
 import com.example.utils.*
 import io.ktor.http.*
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import org.mindrot.jbcrypt.BCrypt
 
 
-class UserService(
-    private val userRepository: UserRepository
-) {
+class UserService : KoinComponent {
+
+    private val userRepository by inject<UserRepository>()
 
     suspend fun signIn(login: String, password: String): ResultResponse<UserToken> {
         var user: UserFull? = null
@@ -47,29 +50,29 @@ class UserService(
         }
     }
 
-    suspend fun signUp(request: UserRequest): ResultResponse<UserToken> {
-        val createdId = userRepository.create(request)
-        return if (createdId > 0) {
-            val token = JwtConfig.generateToken(createdId, request.nickname, request.password)
-            ResultResponse(
-                data = UserToken(token),
-                metadata = MetaData(
-                    HttpStatusCode.OK.value,
-                    "user is created generated",
-                    detail = null
-                )
-            )
-        } else {
-            ResultResponse(
-                data = null,
-                metadata = MetaData(
-                    HttpStatusCode.BadRequest.value,
-                    "user with such data already exists. Check email, phone and nickname",
-                    detail = null
-                )
-            )
-        }
-    }
+//    suspend fun signUp(request: UserRequest): ResultResponse<UserToken> {
+//        val createdId = userRepository.create(request)
+//        return if (createdId > 0) {
+//            val token = JwtConfig.generateToken(createdId, request.nickname, request.password)
+//            ResultResponse(
+//                data = UserToken(token),
+//                metadata = MetaData(
+//                    HttpStatusCode.OK.value,
+//                    "user is created generated",
+//                    detail = null
+//                )
+//            )
+//        } else {
+//            ResultResponse(
+//                data = null,
+//                metadata = MetaData(
+//                    HttpStatusCode.BadRequest.value,
+//                    "user with such data already exists. Check email, phone and nickname",
+//                    detail = null
+//                )
+//            )
+//        }
+//    }
 
 
 }

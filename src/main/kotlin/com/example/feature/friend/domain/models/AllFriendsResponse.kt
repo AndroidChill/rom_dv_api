@@ -1,6 +1,6 @@
 package com.example.feature.friend.domain.models
 
-import com.example.feature.user.domain.model.UserResponse
+import com.example.feature.user.model.UserResponse
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
